@@ -5,10 +5,11 @@ import { MdCameraAlt, MdFlipCameraAndroid } from "react-icons/md";
 const FRAME_WIDTH = 810;
 const FRAME_HEIGHT = 1080;
 
-const PHOTO_X = 175;
-const PHOTO_Y = 200;
-const PHOTO_W = 460;
-const PHOTO_H = 580;
+// ✅ Draw user photo to fill the FULL canvas, not just the hole
+const PHOTO_X = 0;
+const PHOTO_Y = 0;
+const PHOTO_W = FRAME_WIDTH;
+const PHOTO_H = FRAME_HEIGHT;
 
 export default function CameraView({ onCapture }) {
   const webcamRef = useRef(null);
@@ -17,6 +18,7 @@ export default function CameraView({ onCapture }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  // ✅ No aspectRatio constraint — let browser handle it naturally
   const videoConstraints = {
     facingMode: { ideal: facingMode },
   };
@@ -42,10 +44,7 @@ export default function CameraView({ onCapture }) {
   const capture = useCallback(() => {
     if (!webcamRef.current) return;
 
-    const screenshot = webcamRef.current.getScreenshot({
-      width: FRAME_WIDTH,
-      height: FRAME_HEIGHT,
-    });
+    const screenshot = webcamRef.current.getScreenshot();
 
     if (!screenshot) {
       alert("Could not capture photo. Please try again.");
@@ -61,7 +60,30 @@ export default function CameraView({ onCapture }) {
     userImg.src = screenshot;
 
     userImg.onload = () => {
-      ctx.drawImage(userImg, PHOTO_X, PHOTO_Y, PHOTO_W, PHOTO_H);
+      // ✅ Scale and center-crop user photo to fill full canvas
+      const srcW = userImg.width;
+      const srcH = userImg.height;
+      const srcRatio = srcW / srcH;
+      const dstRatio = FRAME_WIDTH / FRAME_HEIGHT;
+
+      let sx, sy, sw, sh;
+
+      if (srcRatio > dstRatio) {
+        // wider than needed — crop sides
+        sh = srcH;
+        sw = srcH * dstRatio;
+        sx = (srcW - sw) / 2;
+        sy = 0;
+      } else {
+        // taller than needed — crop top/bottom
+        sw = srcW;
+        sh = srcW / dstRatio;
+        sx = 0;
+        sy = (srcH - sh) / 2;
+      }
+
+      // Draw user photo center-cropped to fill full canvas
+      ctx.drawImage(userImg, sx, sy, sw, sh, 0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
       const frameImg = new Image();
       frameImg.crossOrigin = "anonymous";
@@ -114,14 +136,6 @@ export default function CameraView({ onCapture }) {
           screenshotQuality={0.92}
           className="webcam"
           mirrored={facingMode === "user"}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
         />
         <img src="/tournament-frame/frame.png" className="frame-overlay" alt="frame" />
       </div>
@@ -130,7 +144,7 @@ export default function CameraView({ onCapture }) {
         <div className="controls">
           <button className="btn-secondary" onClick={toggleCamera}>
             <MdFlipCameraAndroid size={20} />
-            Switch Camera ({facingMode === "environment" ? "Back" : "Front"})
+            Switch Camera ({facingMode === "user" ? "Front" : "Back"})
           </button>
           <button className="btn-capture" onClick={capture}>
             <span className="btn-capture-inner">
