@@ -19,8 +19,7 @@ export default function CameraView({ onCapture }) {
 
   const videoConstraints = {
     facingMode: { ideal: facingMode },
-    width: { ideal: 810 },
-    height: { ideal: 1080 },
+    aspectRatio: 810 / 1080,
   };
 
   const handleUserMedia = () => {
@@ -113,8 +112,17 @@ export default function CameraView({ onCapture }) {
           onUserMedia={handleUserMedia}
           onUserMediaError={handleUserMediaError}
           screenshotFormat="image/jpeg"
+          screenshotQuality={0.92}
           className="webcam"
           mirrored={facingMode === "user"}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
         />
         <img src="./frame.png" className="frame-overlay" alt="frame" />
       </div>
