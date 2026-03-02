@@ -43,16 +43,39 @@ Error generating stack: `+i.message+`
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Save Your Photo</title>
             <style>
-              body { margin: 0; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; color: white; gap: 16px; padding: 16px; box-sizing: border-box; }
-              img { max-width: 100%; border-radius: 12px; }
-              p { font-size: 1rem; text-align: center; color: #aaa; }
-              strong { color: #ffd700; }
+              body {
+                margin: 0;
+                background: #000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                font-family: sans-serif;
+                color: white;
+                gap: 16px;
+                padding: 16px;
+                box-sizing: border-box;
+              }
+              img {
+                max-width: 100%;
+                border-radius: 12px;
+              }
+              p {
+                font-size: 1rem;
+                text-align: center;
+                color: #aaa;
+              }
+              strong {
+                color: #ffd700;
+                font-size: 1.1rem;
+              }
             </style>
           </head>
           <body>
-            <p><strong>Hold down the image and tap "Save to Photos"</strong></p>
+            <p><strong>Hold down the image → tap "Save to Photos"</strong></p>
             <img src="${e}" alt="Your tournament photo" />
             <p>Then go back to the app</p>
           </body>
         </html>
-      `),u.document.close(),r(!0)}else{const u=document.createElement("a");u.href=e,u.download="hariprabodham-volleyball-2026.jpg",u.click(),r(!0)}};return z.jsxs("div",{className:"preview-container",children:[z.jsx("img",{src:e,alt:"Your tournament photo",className:"preview-image"}),z.jsxs("div",{className:"controls",children:[z.jsx("button",{className:"btn-retake",onClick:t,children:z.jsxs("span",{className:"btn-retake-inner",children:[z.jsx(qd,{size:22}),"RETAKE PHOTO"]})}),z.jsx("button",{className:"btn-download",onClick:o,disabled:n,children:z.jsx("span",{className:"btn-download-inner",children:n?z.jsxs(z.Fragment,{children:[z.jsx(Jd,{size:22})," SAVED!"]}):z.jsxs(z.Fragment,{children:[z.jsx(bd,{size:22})," SAVE PHOTO"]})})})]}),l||i?z.jsx("p",{className:"share-hint",children:'📱 Tap SAVE PHOTO → hold the image → tap "Save to Photos"'}):z.jsx("p",{className:"share-hint",children:"📱 Photo will be saved to your Downloads folder"}),n&&z.jsxs("div",{className:"thankyou-card",children:[z.jsx("div",{className:"thankyou-emoji",children:"🏐🏆🎉"}),z.jsx("h2",{children:"Thank You!"}),z.jsxs("p",{children:["Thank you for participating in the",z.jsx("br",{}),z.jsx("strong",{children:"Hariprabodham Volleyball Tournament 2026!"})]}),z.jsx("p",{className:"thankyou-sub",children:"Wishing you great memories from today 🌟"})]})]})}function lp(){const[e,t]=ke.useState(null);return z.jsxs("div",{className:"app",children:[z.jsxs("div",{className:"header",children:[z.jsx("h1",{children:"🏐 Hariprabodham Volleyball 2026"}),z.jsx("p",{children:"Take your tournament photo!"})]}),e?z.jsx(rp,{image:e,onRetake:()=>t(null)}):z.jsx(np,{onCapture:t})]})}Jl.createRoot(document.getElementById("root")).render(z.jsx(lt.StrictMode,{children:z.jsx(lp,{})}));
+      `),u.document.close(),r(!0)}else{const u=document.createElement("a");u.href=e,u.download="hariprabodham-volleyball-2026.jpg",document.body.appendChild(u),u.click(),document.body.removeChild(u),r(!0)}};return z.jsxs("div",{className:"preview-container",children:[z.jsx("img",{src:e,alt:"Your tournament photo",className:"preview-image"}),z.jsxs("div",{className:"controls",children:[z.jsx("button",{className:"btn-retake",onClick:t,children:z.jsxs("span",{className:"btn-retake-inner",children:[z.jsx(qd,{size:22}),"RETAKE PHOTO"]})}),z.jsx("button",{className:"btn-download",onClick:o,disabled:n,children:z.jsx("span",{className:"btn-download-inner",children:n?z.jsxs(z.Fragment,{children:[z.jsx(Jd,{size:22})," SAVED!"]}):z.jsxs(z.Fragment,{children:[z.jsx(bd,{size:22})," SAVE PHOTO"]})})})]}),l||i?z.jsx("p",{className:"share-hint",children:'👆 Tap SAVE PHOTO → hold the image → tap "Save to Photos"'}):z.jsx("p",{className:"share-hint",children:"📥 Photo saved to Downloads → open Gallery → Albums → Downloads"}),n&&z.jsxs("div",{className:"thankyou-card",children:[z.jsx("div",{className:"thankyou-emoji",children:"🏐🏆🎉"}),z.jsx("h2",{children:"Thank You!"}),z.jsxs("p",{children:["Thank you for participating in the",z.jsx("br",{}),z.jsx("strong",{children:"Hariprabodham Volleyball Tournament 2026!"})]}),z.jsx("p",{className:"thankyou-sub",children:"Wishing you great memories from today 🌟"})]})]})}function lp(){const[e,t]=ke.useState(null);return z.jsxs("div",{className:"app",children:[z.jsxs("div",{className:"header",children:[z.jsx("h1",{children:"🏐 Hariprabodham Volleyball 2026"}),z.jsx("p",{children:"Take your tournament photo!"})]}),e?z.jsx(rp,{image:e,onRetake:()=>t(null)}):z.jsx(np,{onCapture:t})]})}Jl.createRoot(document.getElementById("root")).render(z.jsx(lt.StrictMode,{children:z.jsx(lp,{})}));
