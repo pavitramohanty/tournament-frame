@@ -4,12 +4,42 @@ import { MdReplay, MdFileDownload, MdCheckCircle } from "react-icons/md";
 export default function PreviewView({ image, onRetake }) {
   const [downloaded, setDownloaded] = useState(false);
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   const download = () => {
-    const a = document.createElement("a");
-    a.href = image;
-    a.download = "hariprabodham-volleyball-2026.jpg";
-    a.click();
-    setDownloaded(true);
+    if (isIOS || isSafari) {
+      // ✅ On iOS/Safari — open image in new tab, user saves manually
+      const newTab = window.open();
+      newTab.document.write(`
+        <html>
+          <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Save Your Photo</title>
+            <style>
+              body { margin: 0; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; color: white; gap: 16px; padding: 16px; box-sizing: border-box; }
+              img { max-width: 100%; border-radius: 12px; }
+              p { font-size: 1rem; text-align: center; color: #aaa; }
+              strong { color: #ffd700; }
+            </style>
+          </head>
+          <body>
+            <p><strong>Hold down the image and tap "Save to Photos"</strong></p>
+            <img src="${image}" alt="Your tournament photo" />
+            <p>Then go back to the app</p>
+          </body>
+        </html>
+      `);
+      newTab.document.close();
+      setDownloaded(true);
+    } else {
+      // ✅ Android/Desktop — normal download
+      const a = document.createElement("a");
+      a.href = image;
+      a.download = "hariprabodham-volleyball-2026.jpg";
+      a.click();
+      setDownloaded(true);
+    }
   };
 
   return (
@@ -26,7 +56,7 @@ export default function PreviewView({ image, onRetake }) {
         <button className="btn-download" onClick={download} disabled={downloaded}>
           <span className="btn-download-inner">
             {downloaded ? (
-              <><MdCheckCircle size={22} /> DOWNLOADED!</>
+              <><MdCheckCircle size={22} /> SAVED!</>
             ) : (
               <><MdFileDownload size={22} /> SAVE PHOTO</>
             )}
@@ -34,7 +64,12 @@ export default function PreviewView({ image, onRetake }) {
         </button>
       </div>
 
-      <p className="share-hint">iOS users: Long press the image and tap Save</p>
+      {/* ✅ Different hint based on device */}
+      {isIOS || isSafari ? (
+        <p className="share-hint">📱 Tap SAVE PHOTO → hold the image → tap "Save to Photos"</p>
+      ) : (
+        <p className="share-hint">📱 Photo will be saved to your Downloads folder</p>
+      )}
 
       {downloaded && (
         <div className="thankyou-card">
