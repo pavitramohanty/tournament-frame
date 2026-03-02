@@ -9,7 +9,7 @@ export default function PreviewView({ image, onRetake }) {
 
   const download = () => {
     if (isIOS || isSafari) {
-      // ✅ On iOS/Safari — open image in new tab, user saves manually
+      // iOS Safari & Chrome — open in new tab for long press save
       const newTab = window.open();
       newTab.document.write(`
         <html>
@@ -17,14 +17,37 @@ export default function PreviewView({ image, onRetake }) {
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Save Your Photo</title>
             <style>
-              body { margin: 0; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; color: white; gap: 16px; padding: 16px; box-sizing: border-box; }
-              img { max-width: 100%; border-radius: 12px; }
-              p { font-size: 1rem; text-align: center; color: #aaa; }
-              strong { color: #ffd700; }
+              body {
+                margin: 0;
+                background: #000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                font-family: sans-serif;
+                color: white;
+                gap: 16px;
+                padding: 16px;
+                box-sizing: border-box;
+              }
+              img {
+                max-width: 100%;
+                border-radius: 12px;
+              }
+              p {
+                font-size: 1rem;
+                text-align: center;
+                color: #aaa;
+              }
+              strong {
+                color: #ffd700;
+                font-size: 1.1rem;
+              }
             </style>
           </head>
           <body>
-            <p><strong>Hold down the image and tap "Save to Photos"</strong></p>
+            <p><strong>Hold down the image → tap "Save to Photos"</strong></p>
             <img src="${image}" alt="Your tournament photo" />
             <p>Then go back to the app</p>
           </body>
@@ -33,11 +56,13 @@ export default function PreviewView({ image, onRetake }) {
       newTab.document.close();
       setDownloaded(true);
     } else {
-      // ✅ Android/Desktop — normal download
+      // Android & Desktop — direct download
       const a = document.createElement("a");
       a.href = image;
       a.download = "hariprabodham-volleyball-2026.jpg";
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       setDownloaded(true);
     }
   };
@@ -64,11 +89,15 @@ export default function PreviewView({ image, onRetake }) {
         </button>
       </div>
 
-      {/* ✅ Different hint based on device */}
+      {/* Device specific hint */}
       {isIOS || isSafari ? (
-        <p className="share-hint">📱 Tap SAVE PHOTO → hold the image → tap "Save to Photos"</p>
+        <p className="share-hint">
+          👆 Tap SAVE PHOTO → hold the image → tap "Save to Photos"
+        </p>
       ) : (
-        <p className="share-hint">📱 Photo will be saved to your Downloads folder</p>
+        <p className="share-hint">
+          📥 Photo saved to Downloads → open Gallery → Albums → Downloads
+        </p>
       )}
 
       {downloaded && (
