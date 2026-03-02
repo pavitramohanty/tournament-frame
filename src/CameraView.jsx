@@ -19,7 +19,8 @@ export default function CameraView({ onCapture }) {
 
   const videoConstraints = {
     facingMode: { ideal: facingMode },
-    aspectRatio: FRAME_WIDTH / FRAME_HEIGHT,
+    width: { ideal: 810 },
+    height: { ideal: 1080 },
   };
 
   const handleUserMedia = () => {
