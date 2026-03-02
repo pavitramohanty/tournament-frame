@@ -12,14 +12,13 @@ const PHOTO_H = 580;
 
 export default function CameraView({ onCapture }) {
   const webcamRef = useRef(null);
-  const [facingMode, setFacingMode] = useState("environment");
+  const [facingMode, setFacingMode] = useState("user");
   const [cameraReady, setCameraReady] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const videoConstraints = {
     facingMode: { ideal: facingMode },
-    aspectRatio: 810 / 1080,
   };
 
   const handleUserMedia = () => {
@@ -66,7 +65,7 @@ export default function CameraView({ onCapture }) {
 
       const frameImg = new Image();
       frameImg.crossOrigin = "anonymous";
-      frameImg.src = "./frame.png";
+      frameImg.src = "/tournament-frame/frame.png";
 
       frameImg.onload = () => {
         ctx.drawImage(frameImg, 0, 0, FRAME_WIDTH, FRAME_HEIGHT);
@@ -124,7 +123,7 @@ export default function CameraView({ onCapture }) {
             objectFit: "cover",
           }}
         />
-        <img src="./frame.png" className="frame-overlay" alt="frame" />
+        <img src="/tournament-frame/frame.png" className="frame-overlay" alt="frame" />
       </div>
 
       {cameraReady && (
