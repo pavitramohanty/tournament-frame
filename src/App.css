@@ -1,0 +1,335 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0a0a1a;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 40px;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ─── Header ─── */
+.header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffd700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 12px rgba(255, 215, 0, 0.4);
+}
+
+.header p {
+  font-size: 0.88rem;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ─── Camera ─── */
+.camera-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.webcam-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.4s ease;
+}
+
+.webcam {
+  width: 100%;
+  display: block;
+}
+
+.frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ─── Spinner ─── */
+.spinner-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  gap: 16px;
+  color: #888;
+  font-size: 0.95rem;
+  text-align: center;
+  width: 100%;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #222;
+  border-top-color: #ffd700;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-text {
+  color: #ff6b6b;
+  line-height: 1.8;
+}
+
+/* ─── Controls ─── */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+  width: 100%;
+}
+
+/* ─── Switch Camera ─── */
+.btn-secondary {
+  background: transparent;
+  color: #ffd700;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 13px 20px;
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.08);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* ─── Take Photo ─── */
+.btn-capture {
+  background: #ffd700;
+  color: #111;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 24px rgba(255, 200, 0, 0.4);
+  padding: 0;
+}
+
+.btn-capture-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 17px 24px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.btn-capture:hover {
+  box-shadow: 0 6px 32px rgba(255, 200, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-capture:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 12px rgba(255, 200, 0, 0.3);
+}
+
+/* ─── Preview ─── */
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.preview-image {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Retake ─── */
+.btn-retake {
+  background: #e53935;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(229, 57, 53, 0.4);
+  padding: 0;
+}
+
+.btn-retake-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.btn-retake:hover {
+  box-shadow: 0 6px 28px rgba(229, 57, 53, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-retake:active {
+  transform: translateY(1px);
+}
+
+/* ─── Download ─── */
+.btn-download {
+  background: linear-gradient(135deg, #00c853, #007f33);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 200, 83, 0.4);
+  padding: 0;
+}
+
+.btn-download-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.btn-download:hover {
+  box-shadow: 0 6px 28px rgba(0, 200, 83, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-download:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.btn-download:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ─── Share hint ─── */
+.share-hint {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+}
+
+/* ─── Thank You Card ─── */
+.thankyou-card {
+  background: linear-gradient(135deg, #12122a, #1a1a3e);
+  border: 1.5px solid #ffd700;
+  border-radius: 18px;
+  padding: 28px 20px;
+  text-align: center;
+  width: 100%;
+  animation: fadeSlideUp 0.5s ease forwards;
+  margin-bottom: 16px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.12);
+}
+
+.thankyou-emoji {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+}
+
+.thankyou-card h2 {
+  font-size: 1.7rem;
+  color: #ffd700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 12px rgba(255, 215, 0, 0.4);
+}
+
+.thankyou-card p {
+  font-size: 0.98rem;
+  color: #ccc;
+  line-height: 1.7;
+}
+
+.thankyou-sub {
+  margin-top: 10px;
+  font-size: 0.88rem !important;
+  color: #777 !important;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
