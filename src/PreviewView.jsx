@@ -59,7 +59,7 @@ export default function PreviewView({ image, onRetake }) {
       // Android & Desktop — direct download
       const a = document.createElement("a");
       a.href = image;
-      a.download = "hariprabodham-volleyball-2026.jpg";
+      a.download = "bhajan-jamming-2026.jpg";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -102,11 +102,11 @@ export default function PreviewView({ image, onRetake }) {
 
       {downloaded && (
         <div className="thankyou-card">
-          <div className="thankyou-emoji">🏐🏆🎉</div>
+          <div className="thankyou-emoji">🎵🎶🎉</div>
           <h2>Thank You!</h2>
           <p>
             Thank you for participating in the<br />
-            <strong>Hariprabodham Volleyball Tournament 2026!</strong>
+            <strong>Bhajan Jamming 2026 — Hariprabodham Parivar!</strong>
           </p>
           <p className="thankyou-sub">Wishing you great memories from today 🌟</p>
         </div>

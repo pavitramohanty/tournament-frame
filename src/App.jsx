@@ -9,8 +9,8 @@ export default function App() {
   return (
     <div className="app">
       <div className="header">
-        <h1>🏐 Hariprabodham Volleyball 2026</h1>
-        <p>Take your tournament photo!</p>
+        <h1>🎵 Bhajan Jamming 2026</h1>
+        <p>Hariprabodham Parivar Presents — Take your photo!</p>
       </div>
 
       {capturedImage ? (
